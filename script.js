@@ -19,19 +19,28 @@ function handleNoClick() {
     
     noButton.textContent = messages[messageIndex];
 
-    if (messageIndex < messages.length - 1) {
-        const currentFontSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-        yesButton.style.fontSize = `${currentFontSize * 1.2}px`;
-        
-        const currentPaddingTop = parseFloat(window.getComputedStyle(yesButton).paddingTop);
-        const currentPaddingLeft = parseFloat(window.getComputedStyle(yesButton).paddingLeft);
-        yesButton.style.padding = `${currentPaddingTop * 1.1}px ${currentPaddingLeft * 1.1}px`;
+    // Fixed Growth Steps (Symmetry ke liye)
+    // Har click par size kitne guna badhega, uska fixed ratio:
+    const sizeMultipliers = [1.2, 1.5, 2.1, 2.8, 3.5, 4.2, 5.0, 6.5];
 
-        const currentGap = parseFloat(window.getComputedStyle(buttonContainer).gap) || 20;
-        buttonContainer.style.gap = `${currentGap + 25}px`;
+    if (messageIndex < messages.length - 1) {
+        const scale = sizeMultipliers[messageIndex];
+        
+        // Base sizes (Inhe aap apne CSS ke hisab se adjust kar sakte hain)
+        const baseFontSize = 1.2; // rem
+        const basePaddingV = 10; // px
+        const basePaddingH = 20; // px
+
+        // Dimensions update (Particullar Dimension Logic)
+        yesButton.style.fontSize = `${baseFontSize * scale}rem`;
+        yesButton.style.padding = `${basePaddingV * scale}px ${basePaddingH * scale}px`;
+
+        // No button ko smooth right push dene ke liye gap
+        buttonContainer.style.gap = `${20 + (messageIndex * 15)}px`;
         
         messageIndex++;
     } else {
+        // LAST LINE CLICK - Perfection Trap
         yesButton.style.position = "fixed";
         yesButton.style.top = "50%";
         yesButton.style.left = "50%";
@@ -43,7 +52,7 @@ function handleNoClick() {
         yesButton.style.display = "flex";
         yesButton.style.alignItems = "center";
         yesButton.style.justifyContent = "center";
-        yesButton.style.fontSize = "5rem";
+        yesButton.style.fontSize = "5rem"; 
         yesButton.style.margin = "0";
         
         noButton.style.display = "none";
