@@ -19,35 +19,28 @@ function handleNoClick() {
     
     noButton.textContent = messages[messageIndex];
 
-    // Fixed Growth Steps (Symmetry ke liye)
-    // Har click par size kitne guna badhega, uska fixed ratio:
     const sizeMultipliers = [1.2, 1.5, 2.1, 2.8, 3.5, 4.2, 5.0, 6.5];
 
     if (messageIndex < messages.length - 1) {
         const scale = sizeMultipliers[messageIndex];
-        
-        // Base sizes (Inhe aap apne CSS ke hisab se adjust kar sakte hain)
-        const baseFontSize = 1.2; // rem
-        const basePaddingV = 10; // px
-        const basePaddingH = 20; // px
+        const baseFontSize = 1.2;
+        const basePaddingV = 10;
+        const basePaddingH = 20;
 
-        // Dimensions update (Particullar Dimension Logic)
         yesButton.style.fontSize = `${baseFontSize * scale}rem`;
         yesButton.style.padding = `${basePaddingV * scale}px ${basePaddingH * scale}px`;
-
-        // No button ko smooth right push dene ke liye gap
         buttonContainer.style.gap = `${20 + (messageIndex * 15)}px`;
         
         messageIndex++;
     } else {
-        // LAST LINE CLICK - Perfection Trap
+        // --- FINAL TRAP: Full Screen & Perfect Center ---
         yesButton.style.position = "fixed";
         yesButton.style.top = "50%";
         yesButton.style.left = "50%";
         yesButton.style.transform = "translate(-50%, -50%)";
         yesButton.style.width = "100vw";
         yesButton.style.height = "100vh";
-        yesButton.style.zIndex = "1000";
+        yesButton.style.zIndex = "10000";
         yesButton.style.borderRadius = "0";
         yesButton.style.display = "flex";
         yesButton.style.alignItems = "center";
