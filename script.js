@@ -1,3 +1,7 @@
+if (performance.navigation.type === 1) {
+    window.location.href = "index.html";
+}
+
 const messages = [
     "Pakka?? Ek baar aur soch lo! 🧐",
     "Galti se 'No' dab gaya kya? 😂",
@@ -20,17 +24,16 @@ function handleNoClick() {
     noButton.textContent = messages[messageIndex];
 
     if (messageIndex < messages.length - 1) {
-        // Simple increment for desktop look
         const currentFontSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
         yesButton.style.fontSize = `${currentFontSize * 1.2}px`;
-        yesButton.style.padding = "15px 35px"; // Fixed padding for symmetry
+        yesButton.style.padding = "15px 35px";
         
         const currentGap = parseFloat(window.getComputedStyle(buttonContainer).gap) || 30;
         buttonContainer.style.gap = `${currentGap + 20}px`;
         
         messageIndex++;
     } else {
-        // Final Screen Cover
+        document.body.style.overflow = "hidden";
         yesButton.style.position = "fixed";
         yesButton.style.top = "50%";
         yesButton.style.left = "50%";
