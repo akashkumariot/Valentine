@@ -16,6 +16,11 @@
     </div>
 
     <script>
+        // Refresh detect karke wapas index.html par bhejne ka logic
+        if (performance.navigation.type === 1) {
+            window.location.href = "index.html";
+        }
+
         function createHeart() {
             const heart = document.createElement('div');
             const colors = ['#ff4d4d', '#ff4081', '#ff85a2', '#e91e63'];
