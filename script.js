@@ -16,30 +16,53 @@ function handleNoClick() {
     
     noButton.textContent = messages[messageIndex];
     
-    // Agar last message nahi aaya hai, tabhi index badhao
     if (messageIndex < messages.length - 1) {
         messageIndex++;
     }
-    // Agar last message aa gaya hai, toh wahi rahega, index wapas 0 nahi hoga
     
-    const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-    yesButton.style.fontSize = `${currentSize * 1.4}px`;
+    // Growth Logic for Mobile
+    const multiplier = [1.5, 3, 7, 12, 40]; 
+    const currentScale = multiplier[messageIndex - 1] || 1;
+
+    yesButton.style.transition = "all 0.5s ease-out";
+    yesButton.style.zIndex = "999";
+
+    if (messageIndex < 6) {
+        // Shuruat mein sirf button bada hoga
+        yesButton.style.transform = `scale(${currentScale})`;
+    } else {
+        // Last step (Mummy wala ya Ungli dukhne wala message)
+        // Button ko screen ke center mein fix karke poori screen cover kar lega
+        yesButton.style.position = "fixed";
+        yesButton.style.top = "50%";
+        yesButton.style.left = "50%";
+        yesButton.style.transform = "translate(-50%, -50%)"; 
+        yesButton.style.width = "100vw";
+        yesButton.style.height = "100vh";
+        yesButton.style.fontSize = "3rem"; // Text size fix kar diya taaki sirf 'Y' na dikhe
+        yesButton.style.display = "flex";
+        yesButton.style.alignItems = "center";
+        yesButton.style.justifyContent = "center";
+        yesButton.style.borderRadius = "0";
+    }
 }
 
 function handleYesClick() {
-    window.navigator.vibrate(50);
+    // Vibration sirf mobile par kaam karega
+    if (window.navigator.vibrate) {
+        window.navigator.vibrate(50);
+    }
     window.location.href = "yes_page.html";
 }
 
 // Floating Hearts Logic
 function createHeart() {
     const heart = document.createElement('div');
-    const colors = ['#ff4d4d', '#ff4081', '#ff85a2', '#e91e63']; // Romantic colors
+    const colors = ['#ff4d4d', '#ff4081', '#ff85a2', '#e91e63']; 
     
     heart.innerHTML = '❤️';
     heart.className = 'floating-heart';
     
-    // Random styling
     heart.style.left = Math.random() * 100 + 'vw';
     heart.style.color = colors[Math.floor(Math.random() * colors.length)];
     heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
@@ -50,11 +73,9 @@ function createHeart() {
         heartBg.appendChild(heart);
     }
     
-    // Remove heart after animation
     setTimeout(() => {
         heart.remove();
     }, 5000);
 }
 
-// Start hearts animation
 setInterval(createHeart, 300);
