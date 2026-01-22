@@ -19,22 +19,25 @@ function handleNoClick() {
     
     noButton.textContent = messages[messageIndex];
 
-    const sizeMultipliers = [1.2, 1.5, 2.1, 2.8, 3.5, 4.2, 5.0, 6.5];
-
     if (messageIndex < messages.length - 1) {
-        const scale = sizeMultipliers[messageIndex];
-        yesButton.style.fontSize = `${1.2 * scale}rem`;
-        yesButton.style.padding = `${10 * scale}px ${20 * scale}px`;
-        buttonContainer.style.gap = `${20 + (messageIndex * 15)}px`;
+        // Simple increment for desktop look
+        const currentFontSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+        yesButton.style.fontSize = `${currentFontSize * 1.2}px`;
+        yesButton.style.padding = "15px 35px"; // Fixed padding for symmetry
+        
+        const currentGap = parseFloat(window.getComputedStyle(buttonContainer).gap) || 30;
+        buttonContainer.style.gap = `${currentGap + 20}px`;
+        
         messageIndex++;
     } else {
+        // Final Screen Cover
         yesButton.style.position = "fixed";
         yesButton.style.top = "50%";
         yesButton.style.left = "50%";
         yesButton.style.transform = "translate(-50%, -50%)";
         yesButton.style.width = "100vw";
         yesButton.style.height = "100vh";
-        yesButton.style.zIndex = "10000";
+        yesButton.style.zIndex = "9999";
         yesButton.style.borderRadius = "0";
         yesButton.style.display = "flex";
         yesButton.style.alignItems = "center";
