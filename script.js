@@ -6,8 +6,8 @@ const messages = [
     "Dekh lo... mummy ko bata dunga! 🏃‍♂️💨",
     "Accha thik hai, ab rulaogi kya? 😭",
     "Bas karo! Ungli dukhne lagegi, ab 'Yes' daba do! ❤️",
-    "Maaf krdo na babu, ab toh 'Yes' boldo! 🙏✨", // New Line 1
-    "Ab rula ke hi manogi kya? Maan jao na!🥺❤️" // New Line 2 (Last Trap)
+    "Maaf krdo na babu, ab toh 'Yes' boldo! 🙏✨",
+    "Ab rula ke hi manogi kya? Maan jao na!🥺❤️"
 ];
 
 let messageIndex = 0;
@@ -17,14 +17,9 @@ function handleNoClick() {
     const yesButton = document.querySelector('.yes-button');
     const buttonContainer = document.querySelector('.buttons');
     
-    // Message change karo
     noButton.textContent = messages[messageIndex];
 
-    // --- STEP-WISE GROWTH & FINAL TRAP ---
-    
-    // Agar index last message se kam hai
     if (messageIndex < messages.length - 1) {
-        // Yes Button dhire-dhire bada hoga
         const currentFontSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
         yesButton.style.fontSize = `${currentFontSize * 1.2}px`;
         
@@ -32,17 +27,15 @@ function handleNoClick() {
         const currentPaddingLeft = parseFloat(window.getComputedStyle(yesButton).paddingLeft);
         yesButton.style.padding = `${currentPaddingTop * 1.1}px ${currentPaddingLeft * 1.1}px`;
 
-        // No button right shift hoga
         const currentGap = parseFloat(window.getComputedStyle(buttonContainer).gap) || 20;
         buttonContainer.style.gap = `${currentGap + 25}px`;
         
         messageIndex++;
     } else {
-        // LAST LINE CLICK (The Master Trap)
-        // Button bina text phate poori screen cover kar lega
         yesButton.style.position = "fixed";
-        yesButton.style.top = "0";
-        yesButton.style.left = "0";
+        yesButton.style.top = "50%";
+        yesButton.style.left = "50%";
+        yesButton.style.transform = "translate(-50%, -50%)";
         yesButton.style.width = "100vw";
         yesButton.style.height = "100vh";
         yesButton.style.zIndex = "1000";
@@ -50,19 +43,20 @@ function handleNoClick() {
         yesButton.style.display = "flex";
         yesButton.style.alignItems = "center";
         yesButton.style.justifyContent = "center";
-        yesButton.style.fontSize = "4.5rem"; // Mobile par perfect bold look
+        yesButton.style.fontSize = "5rem";
         yesButton.style.margin = "0";
         
-        noButton.style.display = "none"; // No button khatam!
+        noButton.style.display = "none";
     }
 }
 
 function handleYesClick() {
-    if (window.navigator.vibrate) window.navigator.vibrate(50);
+    if (window.navigator.vibrate) {
+        window.navigator.vibrate(50);
+    }
     window.location.href = "yes_page.html";
 }
 
-// Floating Hearts Animation (Keep this as is)
 function createHeart() {
     const heart = document.createElement('div');
     const colors = ['#ff4d4d', '#ff4081', '#ff85a2', '#e91e63'];
@@ -73,7 +67,12 @@ function createHeart() {
     heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
     heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
     const heartBg = document.getElementById('heart-bg');
-    if (heartBg) heartBg.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
+    if (heartBg) {
+        heartBg.appendChild(heart);
+    }
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
 }
+
 setInterval(createHeart, 300);
