@@ -23,17 +23,11 @@ function handleNoClick() {
 
     if (messageIndex < messages.length - 1) {
         const scale = sizeMultipliers[messageIndex];
-        const baseFontSize = 1.2;
-        const basePaddingV = 10;
-        const basePaddingH = 20;
-
-        yesButton.style.fontSize = `${baseFontSize * scale}rem`;
-        yesButton.style.padding = `${basePaddingV * scale}px ${basePaddingH * scale}px`;
+        yesButton.style.fontSize = `${1.2 * scale}rem`;
+        yesButton.style.padding = `${10 * scale}px ${20 * scale}px`;
         buttonContainer.style.gap = `${20 + (messageIndex * 15)}px`;
-        
         messageIndex++;
     } else {
-        // --- FINAL TRAP: Full Screen & Perfect Center ---
         yesButton.style.position = "fixed";
         yesButton.style.top = "50%";
         yesButton.style.left = "50%";
@@ -46,16 +40,12 @@ function handleNoClick() {
         yesButton.style.alignItems = "center";
         yesButton.style.justifyContent = "center";
         yesButton.style.fontSize = "5rem"; 
-        yesButton.style.margin = "0";
-        
         noButton.style.display = "none";
     }
 }
 
 function handleYesClick() {
-    if (window.navigator.vibrate) {
-        window.navigator.vibrate(50);
-    }
+    if (window.navigator.vibrate) window.navigator.vibrate(50);
     window.location.href = "yes_page.html";
 }
 
@@ -69,12 +59,7 @@ function createHeart() {
     heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
     heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
     const heartBg = document.getElementById('heart-bg');
-    if (heartBg) {
-        heartBg.appendChild(heart);
-    }
-    setTimeout(() => {
-        heart.remove();
-    }, 5000);
+    if (heartBg) heartBg.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
 }
-
 setInterval(createHeart, 300);
