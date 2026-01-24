@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>Yayyy! ❤️</title>
+    <link rel="stylesheet" href="yes_style.css">
+</head>
+<body>
+    <audio id="yes-music" loop>
+        <source src="Happy Valentine's day.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="heart-bg"></div> 
+    
+    <div class="container">
+        <h1>Mujhe Pta Tha Tum Man Jaogi💖</h1>
+        <div class="gif_container">
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3h3YzRlcGhudjE3ajgwN2lpcXV5YTU0YmNvYXF5YTAydDM4ZjA2diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VuCRXRckjLKQLFwSAG/giphy.gif">
+        </div>
+        <p class="love-note">You just made me the happiest person❤️✨</p>
+    </div>
+
+    <script>
+        if (performance.navigation.type === 1) {
+            window.location.href = "index.html";
+        }
+
+        // Yes page load hote hi music play logic
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('yes-music');
+            
+            // Interaction interaction fallback
+            const playAudio = () => {
+                audio.play();
+                window.removeEventListener('click', playAudio);
+            };
+            window.addEventListener('click', playAudio);
+
+            // Auto-play attempt
+            setTimeout(() => {
+                audio.play().catch(e => console.log("Click to play music"));
+            }, 200);
+
+            // 30 seconds stop
+            setTimeout(() => {
+                audio.pause();
+            }, 30000);
+        });
+
+        // Confetti aur hearts ka logic same rahega...
+        // (Baki functions pehle wale hi use karein)
+    </script>
+</body>
+</html>
